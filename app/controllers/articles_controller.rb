@@ -1,8 +1,10 @@
 class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
+  before_filter :load_article, :load_articles
+
   def index
-    @articles = Article.all
+    #@articles = Article.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -34,7 +36,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1/edit
   def edit
-    @article = Article.find(params[:id])
+    @article# = Article.find(params[:id])
   end
 
   # POST /articles
@@ -56,7 +58,7 @@ class ArticlesController < ApplicationController
   # PUT /articles/1
   # PUT /articles/1.json
   def update
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
 
     respond_to do |format|
       if @article.update_attributes(params[:article])
@@ -72,7 +74,7 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1
   # DELETE /articles/1.json
   def destroy
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
     @article.destroy
 
     respond_to do |format|
@@ -80,4 +82,15 @@ class ArticlesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+
+  def load_articles
+    @articles = Article.all.each { |article| article.title.upcase! }
+  end
+
+  def load_article
+    @article = Article.find(params[:id]) if params[:id]
+  end
+
 end

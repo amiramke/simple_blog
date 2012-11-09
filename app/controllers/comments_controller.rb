@@ -1,9 +1,11 @@
 class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
+  before_filter :search_and_replace
+
   def create
-    @article = Article.find(params[:article_id])
-    @comment = @article.comments.build(params[:comment])
+    #@article = Article.find(params[:article_id])
+    #@comment = @article.comments.build(params[:comment])
 
     respond_to do |format|
       if @comment.save
@@ -27,4 +29,13 @@ class CommentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+
+  def search_and_replace
+    @article = Article.find(params[:article_id])
+    @comment = @article.comments.build(params[:comment])
+    @comment.body.gsub!(/sad/,"happy")
+  end
+
 end
