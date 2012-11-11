@@ -35,7 +35,7 @@ private
   def search_and_replace
     @article = Article.find(params[:article_id])
     @comment = @article.comments.build(params[:comment])
-    @comment.body.gsub!(/sad/,"happy")
+    @comment.body.gsub!(/sad/,"happy") unless @comment.body.nil?
   end
 
 end

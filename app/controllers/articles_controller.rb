@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   before_filter :load_article, :load_articles
+  around_filter :catch_exceptions
 
   def index
     #@articles = Article.all
@@ -91,6 +92,26 @@ private
 
   def load_article
     @article = Article.find(params[:id]) if params[:id]
+  end
+  
+  def catch_exceptions
+#    #started = Time.now   
+#    #yield   
+#    #elapsed = Time.now - started   
+#    #logger.info("#{action_name} took #{elapsed} seconds (ami's note)")   
+#    flash[:notice] = "gogogogog"
+    begin
+      yield
+      logger.info("I'm here")
+      logger.info(params[:action])
+    rescue Exception => e
+      flash[:notice] = "Caught exception! #{e} for action #{params[:action]}"
+        unless  params[:action] == 'index'
+          redirect_to :action => 'index'
+        else
+          render :text => "xyz"
+        end
+    end
   end
 
 end

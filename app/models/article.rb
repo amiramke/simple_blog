@@ -6,4 +6,5 @@ class Article < ActiveRecord::Base
   attr_accessible :body, :title
 
   validates :title, :presence => true
+#  validates :custom_validation_test
 end
