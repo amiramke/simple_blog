@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to @comment.article, notice: 'Comment was successfully created.' }
         format.json { render json: @comment, status: :created, location: @comment }
       else
-        format.html { redirect_to @comment.article }
+        format.html { redirect_to @comment.article, notice: 'something went wrong!' }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end

@@ -6,4 +6,6 @@ class Comment < ActiveRecord::Base
   attr_accessible :body
 
   validates_associated :article
+
+  validates :body, :uniqueness => true
 end
