@@ -47,7 +47,8 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.save
-        format.html { redirect_to @article, notice: 'Article was successfully created.' }
+        # format.html { redirect_to @article, notice: 'Article was successfully created.' }
+        format.html {render :show, notice: 'Article was successfully created.'}
         format.json { render json: @article, status: :created, location: @article }
       else
         format.html { render action: "new" }
@@ -93,12 +94,12 @@ private
   def load_article
     @article = Article.find(params[:id]) if params[:id]
   end
-  
+
   def catch_exceptions
-#    #started = Time.now   
-#    #yield   
-#    #elapsed = Time.now - started   
-#    #logger.info("#{action_name} took #{elapsed} seconds (ami's note)")   
+#    #started = Time.now
+#    #yield
+#    #elapsed = Time.now - started
+#    #logger.info("#{action_name} took #{elapsed} seconds (ami's note)")
 #    flash[:notice] = "gogogogog"
     begin
       yield
