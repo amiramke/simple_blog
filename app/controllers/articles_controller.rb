@@ -1,11 +1,11 @@
 class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
-  before_filter :load_article, :load_articles
+  before_filter :load_article#, :load_articles
   around_filter :catch_exceptions
 
   def index
-    #@articles = Article.all
+    @articles = Article.all
 
     respond_to do |format|
       format.html # index.html.erb
